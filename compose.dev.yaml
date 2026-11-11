@@ -1,0 +1,35 @@
+# Dev alinhado ao guia oficial Angular + Compose Watch:
+# https://docs.docker.com/guides/angular/
+# https://docs.docker.com/compose/how-tos/file-watch/
+name: java-starter-kit-frontend
+
+services:
+  web:
+    container_name: jsk-web
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: dev
+    ports:
+      - "4200:4200"
+    develop:
+      watch:
+        # Sync do código (sem bind mount de node_modules — recomendação Docker)
+        - path: .
+          target: /app
+          action: sync
+          ignore:
+            - node_modules/
+            - .angular/
+            - dist/
+        # Mudança de dependências → rebuild da imagem
+        - path: package.json
+          action: rebuild
+        - path: package-lock.json
+          action: rebuild
+        - path: angular.json
+          target: /app/angular.json
+          action: sync+restart
+
+# Uso: docker compose -f compose.dev.yaml up --build --watch
+#  ou: docker compose -f compose.dev.yaml watch

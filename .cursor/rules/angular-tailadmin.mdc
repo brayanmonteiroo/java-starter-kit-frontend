@@ -1,0 +1,11 @@
+---
+description: Convenções Angular + TailAdmin do starter
+alwaysApply: true
+---
+
+# Angular TailAdmin
+
+- Standalone components + `provideHttpClient` + interceptor JWT.
+- Rotas protegidas com `authGuard`.
+- Menu lateral só com itens do produto (Dashboard, Usuários, Roles, Auditoria).
+- Usar `AdminApiService` / `AuthService` em vez de fetch ad-hoc.

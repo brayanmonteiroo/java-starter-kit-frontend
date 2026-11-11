@@ -1,0 +1,21 @@
+# =========================================
+# Development — Angular (docs.docker.com/guides/angular)
+# =========================================
+# Use uma tag Node LTS atual; revise em https://hub.docker.com/_/node
+ARG NODE_VERSION=24-alpine
+
+FROM node:${NODE_VERSION} AS dev
+
+ENV NODE_ENV=development
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+COPY . .
+
+EXPOSE 4200
+
+CMD ["npm", "start", "--", "--host=0.0.0.0", "--port=4200"]

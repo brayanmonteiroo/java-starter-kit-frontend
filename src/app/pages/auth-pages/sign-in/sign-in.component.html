@@ -1,0 +1,54 @@
+<app-auth-page-layout>
+  <div class="flex w-full flex-1 flex-col justify-center lg:w-1/2">
+    <div class="mx-auto w-full max-w-md p-6 sm:p-10">
+      <h1 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
+        Entrar
+      </h1>
+      <p class="mb-8 text-sm text-gray-500 dark:text-gray-400">
+        Java Starter Kit — API hexagonal + painel admin
+      </p>
+
+      <form class="space-y-4" (ngSubmit)="submit()">
+        <div>
+          <label class="mb-1.5 block text-sm text-gray-700 dark:text-gray-300">E-mail</label>
+          <input
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm dark:border-gray-700 dark:bg-gray-900"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          />
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm text-gray-700 dark:text-gray-300">Senha</label>
+          <input
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm dark:border-gray-700 dark:bg-gray-900"
+            [type]="showPassword ? 'text' : 'password'"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+          <button class="mt-1 text-xs text-brand-500" type="button" (click)="togglePassword()">
+            {{ showPassword ? 'Ocultar' : 'Mostrar' }} senha
+          </button>
+        </div>
+
+        @if (error()) {
+          <p class="text-sm text-error-500">{{ error() }}</p>
+        }
+
+        <button
+          class="w-full rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 disabled:opacity-60"
+          type="submit"
+          [disabled]="loading()"
+        >
+          {{ loading() ? 'Entrando…' : 'Entrar' }}
+        </button>
+      </form>
+
+      <a routerLink="/forgot-password" class="mt-6 inline-block text-sm text-brand-500">
+        Esqueci a senha
+      </a>
+    </div>
+  </div>
+</app-auth-page-layout>

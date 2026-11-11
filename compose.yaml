@@ -1,0 +1,13 @@
+# Produção / smoke da imagem Nginx (docs.docker.com/guides/angular)
+name: java-starter-kit-frontend
+
+services:
+  web:
+    container_name: jsk-web-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
